@@ -1,18 +1,23 @@
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Map.MapGeneration.Entities;
+using Map.MapGeneration.Entities.Tiles;
+using UnityEngine;
 
 namespace Map.MapGeneration
 {
     public class EntityPlacer : IEntityPlacer
     {
-        private readonly Map _map;
+        private readonly DataMap _dataMap;
+        
 
-        public EntityPlacer(Map map)
+        public EntityPlacer(DataMap dataMap)
         {
-            _map = map;
+            _dataMap = dataMap;
         }
 
-        public void RotateEntity(IEntity entity, int times=1)
+        public void RotateEntity(IRotatableEntity entity, int times=1)
         {
             if (entity?.EntityGrid == null)
                 return;
@@ -35,52 +40,54 @@ namespace Map.MapGeneration
 
                 entity.EntityGrid = newGrid;
             }
+
+            entity.Rotations = (entity.Rotations + times) % 4;
         }
 
-        public void PlaceEntity(IEntity entity, int x, int y)
+        public void PlaceEntity(IEntity entity, Vector2Int position)
         {
-            if (!CanPlaceEntity(entity, x, y))
+            if (!CanPlaceEntity(entity, position))
                 return;
 
+            _dataMap.EntityCoordinates.Add(new Tuple<IEntity, Vector2Int>(entity, position));
+            
             foreach (var row in entity.EntityGrid)
             {
                 foreach (var tile in row)
                 {
                     if (tile != null)
-                        _map.SetTile(x, y, tile);
+                        _dataMap.SetTile(position, tile);
 
-                    x++;
+                    position.x++;
                 }
 
-                y++;
-                x -= row.Count; // Reset x to the starting column for the next row
+                position.y++;
+                position.x -= row.Count; // Reset x to the starting column for the next row
             }
         }
 
-        public bool CanPlaceEntity(IEntity entity, int x, int y)
+        public bool CanPlaceEntity(IEntity entity, Vector2Int position)
         {
             if (entity?.EntityGrid == null)
                 return false;
-
-            int startY = y;
 
             foreach (var row in entity.EntityGrid)
             {
                 foreach (var tile in row)
                 {
                     // Check if the tile is outside the map bounds
-                    if (x < 0 || x >= _map.Width || y < 0 || y >= _map.Height)
+                    if (position.x < 0 || position.x >= _dataMap.Width || position.y < 0 || position.y >= _dataMap.Height)
                         return false;
 
                     // Check if the tile position is already occupied
-                    if (tile != null && !_map.IsTileEmpty(x, y))
+                    if (tile != null && !_dataMap.IsTileEmpty(position.x, position.y))
                         return false;
 
-                    x++;
+                    position.x++;
                 }
 
-                y++;
-                x = x - row.Count; // Reset x to the starting column for the next row
+                position.y++;
+                position.x -= row.Count; // Reset x to the starting column for the next row
             }
 
             return true;

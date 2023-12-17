@@ -1,4 +1,4 @@
-namespace Map.MapGeneration.Entities
+namespace Map.MapGeneration.Entities.Tiles
 {
     public class EmptyTile : ITile
     {

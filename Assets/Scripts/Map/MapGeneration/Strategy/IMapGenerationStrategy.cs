@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Map.MapGeneration.Entities;
 
-namespace Map.MapGeneration
+namespace Map.MapGeneration.Strategy
 {
     public interface IMapGenerationStrategy
     {
-        Map GenerateMap(int width, int height, List<IEntity> entities = null);
+        DataMap GenerateMap(int width, int height, List<IEntity> entities = null);
     }
 }

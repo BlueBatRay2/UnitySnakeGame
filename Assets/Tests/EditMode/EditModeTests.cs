@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Map.MapGeneration;
 using Map.MapGeneration.Entities;
+using Map.MapGeneration.Entities.Concrete;
+using Map.MapGeneration.Strategy;
 using NUnit.Framework;
 
 namespace Tests.EditMode
@@ -17,10 +19,10 @@ namespace Tests.EditMode
 
             
             //Act
-            Map.Map myNewMap = MapGenerator.GenerateMap(5, 5, new RandomMapGenerationStrategy(), new List<IEntity> { new Wall(), new Wall(),new Wall(),new Wall(),new Wall(),new Wall(),new Wall() });
+            DataMap myNewDataMap = MapGenerator.GenerateDataMap(5, 5, new RandomMapGenerationStrategy(), new List<IEntity> { new LWallEntity(), new LWallEntity(),new LWallEntity(),new LWallEntity(),new LWallEntity(),new LWallEntity(),new LWallEntity() });
             //Assert
-            Assert.AreEqual(expectedWidth, myNewMap.Width);
-            Assert.AreEqual(expectedHeight, myNewMap.Height);
+            Assert.AreEqual(expectedWidth, myNewDataMap.Width);
+            Assert.AreEqual(expectedHeight, myNewDataMap.Height);
         
         }
     }
