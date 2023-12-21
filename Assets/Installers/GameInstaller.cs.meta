@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 59a1426d7b56c4140895c5df3f884787
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - visualMapManager: {instanceID: 0}
+  - mainMenuDialog: {fileID: 1061213867257458610, guid: c39ddb853fce848b0a491986480170ff, type: 3}
+  - pauseMenuDialog: {fileID: 1560179372850144667, guid: a2db6d2857bf340e890da60616d38c82, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

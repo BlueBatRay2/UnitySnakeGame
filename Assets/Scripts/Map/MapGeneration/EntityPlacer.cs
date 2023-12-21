@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using Map.MapGeneration.Entities;
 using Map.MapGeneration.Entities.Tiles;
 using UnityEngine;
@@ -9,10 +7,9 @@ namespace Map.MapGeneration
 {
     public class EntityPlacer : IEntityPlacer
     {
-        private readonly DataMap _dataMap;
-        
+        private readonly IDataMap _dataMap;
 
-        public EntityPlacer(DataMap dataMap)
+        public EntityPlacer(IDataMap dataMap)
         {
             _dataMap = dataMap;
         }
@@ -44,12 +41,14 @@ namespace Map.MapGeneration
             entity.Rotations = (entity.Rotations + times) % 4;
         }
 
+        public void DeleteEntity(Vector2Int position)
+        {
+            _dataMap.SetTile(position, new EmptyTile());
+        }
         public void PlaceEntity(IEntity entity, Vector2Int position)
         {
             if (!CanPlaceEntity(entity, position))
                 return;
-
-            _dataMap.EntityCoordinates.Add(new Tuple<IEntity, Vector2Int>(entity, position));
             
             foreach (var row in entity.EntityGrid)
             {
@@ -70,7 +69,7 @@ namespace Map.MapGeneration
         {
             if (entity?.EntityGrid == null)
                 return false;
-
+            
             foreach (var row in entity.EntityGrid)
             {
                 foreach (var tile in row)
@@ -92,6 +91,5 @@ namespace Map.MapGeneration
 
             return true;
         }
-
     }
 }

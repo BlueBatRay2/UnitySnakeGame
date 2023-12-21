@@ -4,20 +4,20 @@ namespace Commands
 {
     public class CreateVisualMapCommand : ICommand
     {
-        private readonly VisualMapGenerator _mapGenerator;
-        private int _width;
-        private int _height;
+        private readonly VisualMapManager _mapManager;
+        private readonly int _width;
+        private readonly int _height;
 
-        public CreateVisualMapCommand(VisualMapGenerator mapGenerator, int width, int height)
+        public CreateVisualMapCommand(VisualMapManager mapManager, int width, int height)
         {
-            _mapGenerator = mapGenerator;
+            _mapManager = mapManager;
             _width = width;
             _height = height;
         }
 
         public void Execute()
         {
-            _mapGenerator.CreateVisualMap(_width, _height);
+            _mapManager.CreateVisualMap(_width, _height);
         }
     }
 }

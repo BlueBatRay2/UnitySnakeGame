@@ -2,31 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Map.MapGeneration.Entities;
 using Map.MapGeneration.Entities.Tiles;
 using UnityEngine;
 
 namespace Map.MapGeneration
 {
-    public class DataMap : IEnumerable<ITile>
+    public class DataMap : IDataMap
     {
-        public int Width { get; }
-        public int Height { get; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         
         private List<List<ITile>> _tiles;
         
-        public readonly List<Tuple<IEntity, Vector2Int>> EntityCoordinates = new();
-
-        public DataMap(int width, int height)
+        public void InitializeTiles(int width, int height)
         {
             Width = width;
             Height = height;
-
-            InitializeTiles();
-        }
-
-        private void InitializeTiles()
-        {
+            
             _tiles = new List<List<ITile>>();
 
             for (int y = 0; y < Height; y++)
@@ -59,6 +51,11 @@ namespace Map.MapGeneration
             _tiles[position.y][position.x] = tile;
         }
 
+        public ITile GetTile(Vector2Int position)
+        {
+            return _tiles[position.y][position.x];
+        }
+
         public IEnumerator<ITile> GetEnumerator()
         {
             return new DataMapEnumerator(_tiles);
@@ -89,13 +86,14 @@ namespace Map.MapGeneration
                 for (int x = 0; x < Width; x++)
                 {
                     ITile tile = _tiles[y][x];
-                    mapString.Append(tile.CanEnter ? '-' : '*'); // '#' represents a wall
+                    mapString.Append(tile); // '#' represents a wall
                 }
                 mapString.AppendLine(); // New line at the end of each row
             }
             return mapString.ToString();
         }
         
+
         private class DataMapEnumerator : IEnumerator<ITile>
         {
             private readonly List<List<ITile>> _tiles;

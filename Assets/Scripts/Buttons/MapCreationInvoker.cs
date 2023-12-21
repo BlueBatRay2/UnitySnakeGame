@@ -11,9 +11,9 @@ namespace Buttons
         public TMP_InputField widthInputField;
         public TMP_InputField heightInputField;
         public TMP_Text errorMessage;
-        
+        public Button startButton;
         private ICommand _createMapCommand;
-
+        
         void Start()
         {
             Button mapCreationButton = GetComponent<Button>();
@@ -27,9 +27,11 @@ namespace Buttons
                 return;
             }
 
-            VisualMapGenerator mapGenerator = FindObjectOfType<VisualMapGenerator>();
-            _createMapCommand = new CreateVisualMapCommand(mapGenerator, width, height);
+            VisualMapManager mapManager = FindObjectOfType<VisualMapManager>();
+            _createMapCommand = new CreateVisualMapCommand(mapManager, width, height);
             _createMapCommand.Execute();
+            
+            startButton.gameObject.SetActive(true);
         }
 
         private bool ValidateInput(out int width, out int height)

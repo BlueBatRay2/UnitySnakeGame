@@ -1,7 +1,4 @@
 namespace Map.MapGeneration.Entities
 {
-    public interface IRotatableEntity : IEntity, IRotatable
-    {
-        
-    }
+    public interface IRotatableEntity : IEntity, IRotatable{}
 }

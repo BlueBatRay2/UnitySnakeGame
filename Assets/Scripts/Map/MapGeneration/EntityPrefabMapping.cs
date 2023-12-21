@@ -1,4 +1,3 @@
-using Map.MapGeneration.Entities;
 using Map.MapGeneration.Entities.EntitySO;
 using UnityEngine;
 
@@ -13,7 +12,8 @@ namespace Map.MapGeneration
             public int upperRange;
         }
 
+        public int snakeStartingLength;
+        
         public EntityPrefabPair[] mappings;
     }
-
 }

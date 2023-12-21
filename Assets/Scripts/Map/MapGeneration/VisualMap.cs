@@ -4,11 +4,11 @@ namespace Map.MapGeneration
 {
     public class VisualMap
     {
-        public DataMap Datamap { get; }
+        public IDataMap DataMap { get; }
         public GameObject EntireVisualMap { get; set; }
-        public VisualMap(DataMap datamap, GameObject entireVisualMap)
+        public VisualMap(IDataMap dataMap, GameObject entireVisualMap)
         {
-            Datamap = datamap;
+            DataMap = dataMap;
             EntireVisualMap = entireVisualMap;
         }
     }
