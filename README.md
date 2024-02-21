@@ -42,8 +42,11 @@ Snake Game
    ```sh
    cd UnitySnakeGame
    ```
-3. **Run Project:** Press play and run.
-4. **Have Fun!**
+3. **Open Scene** open Snakegame scene
+4. **Run Project:** Press play and run.
+5. **TMP Importer Dialog** Press the Import TMP essentials button
+6. **Run Project:** Run again with tmp installed.
+7. **Have Fun!**
 
 ## How to Play
 
