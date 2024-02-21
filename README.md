@@ -2,7 +2,7 @@
 
 <h2 align="center">
 
-![Snake_Preview](SnakeUnityPreview.png)
+![Snake_Preview](snakeanimation.gif)
 
 Snake Game
 </h2>
